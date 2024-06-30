@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Setup Node.js and Install Dependencies
         uses: ./.github/setup-node-dependencies
         with:
