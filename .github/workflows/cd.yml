@@ -1,0 +1,27 @@
+name: CD Bookstore
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js and Install Dependencies
+        uses: ./.github/setup-node-dependencies
+        with:
+          node-version: '20'
+
+      - name: Linting, Formatting and Testing Checks
+        uses: ./.github/checks
+        with:
+          node-version: '20'
+
+      - name: Deploy
+        run: echo "Deploying... (Coming in later sessions)"
