@@ -14,14 +14,10 @@ runs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
+    - name: Setup Node.js and Install Dependencies
+      uses: ./.github/setup-node-dependencies
       with:
         node-version: ${{ inputs.node-version }}
-
-    - name: Install dependencies
-      run: npm install
-      shell: bash
 
     - name: Run ESLint
       run: npm run lint
