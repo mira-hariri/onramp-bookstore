@@ -21,13 +21,9 @@ jobs:
 
       - name: Setup Node.js and Install Dependencies
         uses: ./.github/setup-node-dependencies
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Linting, Formatting and Testing Checks
         uses: ./.github/checks
-        with:
-          node-version: ${{ matrix.node-version }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,13 +40,9 @@ jobs:
 
       - name: Setup Node.js and Install Dependencies
         uses: ./.github/setup-node-dependencies
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Linting, Formatting and Testing Checks
         uses: ./.github/checks
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Deploy
         run: echo "Deploying... (Coming in later sessions)"
