@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Setup Node.js and Install Dependencies
-        uses: ./.github/setup-node-and-install
+        uses: ./.github/setup-node-dependencies
         with:
           node-version: '20'
 
