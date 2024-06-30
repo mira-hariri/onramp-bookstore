@@ -10,8 +10,6 @@ runs:
 
     - name: Setup Node.js and Install Dependencies
       uses: ./.github/setup-node-dependencies
-      with:
-        node-version: ${{ matrix.node-version }}
 
     - name: Run ESLint
       run: npm run lint
