@@ -20,3 +20,5 @@ jobs:
 
       - name: Linting, Formatting and Testing Checks
         uses: ./.github/checks
+        with:
+          node-version: '20'
