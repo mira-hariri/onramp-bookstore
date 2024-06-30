@@ -9,23 +9,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: '20'
+    needs: CI Bookstore
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js ${{ matrix.node-version }} and Install Dependencies
+      - name: Setup Node.js and Install Dependencies
         uses: ./.github/setup-node-dependencies
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20'
 
       - name: Linting, Formatting and Testing Checks
         uses: ./.github/checks
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20'
 
       - name: Deploy
         run: echo "Deploying... (Coming in later sessions)"
