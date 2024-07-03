@@ -2,12 +2,6 @@ name: Linting, Formatting and Testing Checks
 
 description: 'Runs prettier, linting and testing'
 
-inputs:
-  node-version:
-    description: 'Node.js version'
-    required: true
-    default: '20'
-
 runs:
   using: 'composite'
   steps:
@@ -16,8 +10,6 @@ runs:
 
     - name: Setup Node.js and Install Dependencies
       uses: ./.github/setup-node-dependencies
-      with:
-        node-version: ${{ inputs.node-version }}
 
     - name: Run ESLint
       run: npm run lint
