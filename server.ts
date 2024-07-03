@@ -25,14 +25,13 @@ app.get('/api/books', (req, res) => {
 });
 
 app.delete('/api/books/:id', (req, res) => {
-  const bookId = parseInt(req.params.id, 10);
-  const bookIndex = books.findIndex((book) => book.id === bookId);
-
-  if (bookIndex !== -1) {
-    books.splice(bookIndex, 1);
-    res.status(200).json({ message: 'Book deleted successfully' });
+  const { id } = req.params;
+  const index = books.findIndex((book) => book.id === Number(id));
+  if (index === -1) {
+    return res.status(404).json({ message: 'Book not found' });
   } else {
-    res.status(404).json({ message: 'Book not found' });
+    books.splice(index, 1);
+    return res.json({ message: 'Book deleted' });
   }
 });
 
