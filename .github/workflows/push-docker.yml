@@ -33,16 +33,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Download Docker Image Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: bookstore-api
-          path: /tmp
-
-      - name: Load Docker Image
+      - name: Build Docker Image
         run: |
           IMAGE_TAG=latest
-          docker load -i /tmp/bookstore-api.tar
           docker tag bookstore-api:$IMAGE_TAG ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ vars.ECR_REPOSITORY }}:$IMAGE_TAG
 
       - name: Push Docker image to ECR
