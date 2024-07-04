@@ -9,6 +9,11 @@ jobs:
 
     environment: main
 
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
