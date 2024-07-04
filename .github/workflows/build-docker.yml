@@ -19,5 +19,11 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t bookstore-api .
-          docker save -o bookstore-api.tar bookstore-api
+          docker save -o /tmp/bookstore-api.tar bookstore-api
         shell: bash
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: bookstore-api
+          path: /tmp/bookstore-api.tar
