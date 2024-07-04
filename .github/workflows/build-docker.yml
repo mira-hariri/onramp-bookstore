@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +16,23 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ var.ROLE_NAME }}
+          aws-region: ${{ vars.REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Build Docker Image
         run: |
-          docker build -t bookstore-api .
-          docker images bookstore-api
-        shell: bash
+          IMAGE_TAG=latest
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG .
+          docker tag ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
+
+      - name: Push Docker image to ECR
+        run: |
+          IMAGE_TAG=latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
