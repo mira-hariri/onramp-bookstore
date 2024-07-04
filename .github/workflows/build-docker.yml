@@ -19,5 +19,5 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t bookstore-api .
-          docker images bookstore-api
+          docker save -o bookstore-api.tar bookstore-api
         shell: bash
